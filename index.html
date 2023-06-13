@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        header{
+            margin-left: 350px;
+            margin-bottom: 50px;
+            font-size: x-large;
+        }
+        #container{
+            margin-left: 150px;
+            height: 400px;
+            width: 500px;
+            background-color: aliceblue;
+            border: 1px solid black;
+            
+        }
+        h1{
+            text-align: center;
+        }
+        input{
+            margin-left: 50px;
+            width: 350px;
+        }
+        ul{
+            list-style: none;
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+        li{
+            background-color: aquamarine;
+            margin-top: 5px;
+        }
+        label{
+            margin-left: 50px;
+        }
+        button{
+            margin-left: 50px;
+            margin-top: 10px;
+            width:360px;
+            background-color: grey;
+        }
+       
+    </style>
+</head>
+<body>
+    <header>Simple Form</header>
+    <section id="container" >
+<form  onsubmit="savetoLocalStorage(event)">
+    <h1>New user</h1>
+    
+
+   <div><label for="text">Name</label><br>
+    <input type="text"  name="username"><br></div> 
+
+<div><label for="text">Email</label><br>
+    <input type="text"  name="emailId"><br></div>
+
+    <div><label for="phonenumber">Phone NUmber</label><br>
+        <input type="tel" name="phonenumber"><br></div>
+
+
+ <button >Submit</button>
+</form>
+<ul id="listOfitems"></ul>
+    </section>
+    <script>
+ function savetoLocalStorage(event){
+    event.preventDefault();
+    const name=event.target.username.value;
+    const email=event.target.emailId.value;
+    const phonenumber=event.target.phonenumber.value;
+
+    const obj={
+        name,
+        email,
+        phonenumber
+    }
+    localStorage.setItem(obj.email,JSON.stringify(obj))
+    showUserOnScreen(obj)
+ }
+ function showUserOnScreen(obj){
+    const perentElem=document.getElementById('listOfitems')
+    const childElem=document.createElement('li')
+    childElem.textContent=obj.name+'--'+obj.email+'--'+obj.phonenumber
+    const delbtn=document.createElement('input')
+    delbtn.type="button";
+    delbtn.value="Delete"
+    delbtn.onclick=()=>{
+        localStorage.removeItem(obj.email)
+        perentElem .removeChild(childElem)
+    }
+    childElem.appendChild(delbtn)
+    perentElem.appendChild(childElem)
+
+
+ }
+
+
+
+            
+    </script>
+</body>
+</html>
